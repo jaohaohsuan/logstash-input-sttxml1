@@ -3,6 +3,7 @@ require "logstash/inputs/base"
 require "logstash/namespace"
 require "stud/interval"
 require "socket" # for Socket.gethostname
+require "filewatcher'
 
 # Generate a repeating message.
 #
@@ -14,25 +15,22 @@ class LogStash::Inputs::Sttxml1 < LogStash::Inputs::Base
   # If undefined, Logstash will complain, even if codec is unused.
   default :codec, "plain" 
 
-  # The message string to use in the event.
-  config :message, :validate => :string, :default => "Hello World!"
-
-  # Set how frequently messages should be sent.
-  #
-  # The default, `1`, means send a message every second.
-  config :interval, :validate => :number, :default => 1
+	# The path(s) to the file(s) to use as an input.
+	config :path, :validate => :array, :required => true 
 
   public
   def register
     @host = Socket.gethostname
+		@logger.info("Registering file input", :path => @path)
   end # def register
 
   def run(queue)
-    Stud.interval(@interval) do
-      event = LogStash::Event.new("message" => @message, "host" => @host)
+		FileWatcher.new(@path).watch do |filename|
+      event = LogStash::Event.new("message" => filename, "host" => @host)
       decorate(event)
       queue << event
-    end # loop
+		end
+
   end # def run
 
 end # class LogStash::Inputs::Sttxml1

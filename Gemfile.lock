@@ -1,7 +1,8 @@
 PATH
   remote: .
   specs:
-    logstash-input-sttxml1 (0.1.2)
+    logstash-input-sttxml1 (0.0.1)
+      filewatcher (~> 0.5.2)
       logstash-codec-plain
       logstash-core (>= 1.4.0, < 2.0.0)
       stud
@@ -15,6 +16,8 @@ GEM
     diff-lcs (1.2.5)
     ffi (1.9.10-java)
     filesize (0.0.4)
+    filewatcher (0.5.2)
+      trollop (~> 2.0)
     gem_publisher (1.5.0)
     gems (0.8.3)
     i18n (0.6.9)
@@ -72,6 +75,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    trollop (2.1.2)
 
 PLATFORMS
   java

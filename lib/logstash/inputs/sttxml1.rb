@@ -3,7 +3,7 @@ require "logstash/inputs/base"
 require "logstash/namespace"
 require "stud/interval"
 require "socket" # for Socket.gethostname
-require "filewatcher'
+require "filewatcher"
 
 # Generate a repeating message.
 #

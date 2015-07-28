@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'logstash-input-sttxml1'
-  s.version         = '0.0.2'
+  s.version         = '0.0.5'
   s.licenses = ['Apache License (2.0)']
   s.summary = "This example input streams a string at a definable interval."
   s.description = "This gem is a logstash plugin required to be installed on top of the Logstash core pipeline using $LS_HOME/bin/plugin install gemname. This gem is not a stand-alone program"
@@ -22,5 +22,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'logstash-codec-plain'
   s.add_runtime_dependency 'stud'
 	s.add_runtime_dependency 'filewatcher', '~> 0.5.2'
+	s.add_runtime_dependency 'nokogiri', '~> 1.6.6.2'
   s.add_development_dependency 'logstash-devutils'
 end

@@ -70,7 +70,7 @@ class LogStash::Inputs::Sttxml1 < LogStash::Inputs::Base
 						party = parties[who]
 						event[party] = ''
 						link.child.children.each do |item|
-							begin_time, end_time, content = item.attribute('Begin').content.to_i, item.attribute('End').content.to_i, item.child.text.gsub(/\s+/, '')
+							begin_time, end_time, content = item.attribute('Begin').content.to_i, item.attribute('End').content.to_i, item.child.text.to_s.gsub(/\s+/, '')
 							event[party] += "#{party}-#{begin_time} #{content}\n"
 							clauses << [ who, party, begin_time, end_time, content ]
 						end

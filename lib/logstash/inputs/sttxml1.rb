@@ -22,6 +22,9 @@ class LogStash::Inputs::Sttxml1 < LogStash::Inputs::Base
 	# Default matches R1 and r1
 	config :customer_regex, :validate => :string, :default => '[rR]1'
 
+	# If true, It will substitute all whitespace
+	config :analysis, :validate => :boolean, :default => false
+
 	# The path(s) to the file(s) to use as an input.
 	config :path, :validate => :array, :required => true 
 
@@ -70,7 +73,7 @@ class LogStash::Inputs::Sttxml1 < LogStash::Inputs::Base
 						party = parties[who]
 						event[party] = ''
 						link.child.children.each do |item|
-							begin_time, end_time, content = item.attribute('Begin').content.to_i, item.attribute('End').content.to_i, item.child.text.to_s.gsub(/\s+/, '')
+							begin_time, end_time, content = item.attribute('Begin').content.to_i, item.attribute('End').content.to_i, if @analysis; item.child.text.to_s.gsub(/\s+/, '') else item.child.text.to_s end
 							event[party] += "#{party}-#{begin_time} #{content}\n"
 							clauses << [ who, party, begin_time, end_time, content ]
 						end
